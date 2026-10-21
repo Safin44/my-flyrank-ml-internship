@@ -1,9 +1,9 @@
 # Capstone Report — <your lane>
 
-- **Author:**
+- **Author:** Imam Hossain Safin
 - **Lane:**
-- **Repo:**
-- **Date:**
+- **Repo:** https://github.com/Safin44/my-flyrank-ml-internship
+- **Date:** 21/10/2026
 
 > Copy this file to `work/capstone_report.md` and fill it in as you build. Sections 1–8
 > mirror the Pass / Needs-Work rubric axes, so nothing here is optional. Sections 0 and 9
