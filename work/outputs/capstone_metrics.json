@@ -1,0 +1,191 @@
+{
+  "action_summary": {
+    "decline_proxy_items": 94,
+    "median_march_impressions": 168.0,
+    "output_policy": "Aggregate-only; no page/client IDs or row-level scores are persisted.",
+    "position_band_counts": {
+      "13\u201320": 0,
+      "4\u20135": 0,
+      "6\u20138": 0,
+      "9\u201312": 0,
+      ">20": 100,
+      "unknown": 0,
+      "\u22643": 0
+    },
+    "positive_proxy_share": 0.94,
+    "ranked_items_summarized": 100,
+    "source": "client-held-out top-risk items only; descriptive, not an independent validation metric"
+  },
+  "base_rate_reference": {
+    "average_precision": 0.7253713039923695,
+    "description": "Expected random ranking / no-discrimination reference using the held-out positive prevalence.",
+    "precision_at_10": 0.7253713039923695,
+    "precision_at_50": 0.7253713039923695,
+    "roc_auc": 0.5
+  },
+  "baseline": {
+    "description": "Training-client median CTR by March average-position band; positive CTR gap weighted by log1p(March impressions).",
+    "expected_ctr_source": "training clients only",
+    "name": "March-only within-position CTR-shortfall heuristic",
+    "training_global_median_ctr_pct": 0.290181000780791
+  },
+  "baseline_metrics": {
+    "average_precision": 0.707558491791636,
+    "precision_at_10": 0.9,
+    "precision_at_50": 0.68,
+    "roc_auc": 0.47719327088828833
+  },
+  "data": {
+    "april_duplicate_daily_grain_groups": 0,
+    "candidate_rows_before_volume_floor": 68624,
+    "client_history_start_filter": "gsc_data_start is not null and <= 2026-03-01",
+    "clients_active_in_both_months": 35,
+    "dimension_clients": 104,
+    "dimension_clients_missing_start_date": 37,
+    "dimension_clients_started_after_cutoff": 15,
+    "dimension_clients_started_by_cutoff": 52,
+    "eligible_clients": 35,
+    "eligible_rows": 63498,
+    "march_duplicate_daily_grain_groups": 0,
+    "march_rows_with_april_page_row": 63350,
+    "march_rows_without_april_page_row_treated_as_zero": 148,
+    "minimum_march_clicks": 1,
+    "minimum_march_impressions": 100,
+    "rows_excluded_by_volume_floor": 5126
+  },
+  "environment": {
+    "duckdb": "2.0.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "python": "3.12.3",
+    "scikit_learn": "1.9.1"
+  },
+  "features": {
+    "excluded_from_features": [
+      "April clicks",
+      "trend fields",
+      "client_hash_id",
+      "content_hash_id",
+      "product decisions",
+      "GA4 metrics"
+    ],
+    "feature_window": "March 2026 only",
+    "model_inputs": [
+      "log1p_march_impressions",
+      "log1p_march_clicks",
+      "march_ctr_pct",
+      "march_avg_position"
+    ],
+    "position_bands_for_baseline": [
+      "\u22643",
+      "4\u20135",
+      "6\u20138",
+      "9\u201312",
+      "13\u201320",
+      ">20",
+      "unknown"
+    ]
+  },
+  "label_sensitivity": [
+    {
+      "eligible_rows": 68624,
+      "min_march_impressions": 1,
+      "positive_rate": 0.6154552343203544
+    },
+    {
+      "eligible_rows": 63498,
+      "min_march_impressions": 100,
+      "positive_rate": 0.5977196132161643
+    },
+    {
+      "eligible_rows": 51062,
+      "min_march_impressions": 500,
+      "positive_rate": 0.5751047745877561
+    }
+  ],
+  "model": {
+    "C": 1.0,
+    "imputation": "median",
+    "max_iter": 2000,
+    "name": "class-balanced LogisticRegression",
+    "random_state": 42,
+    "scaling": "StandardScaler"
+  },
+  "model_metrics": {
+    "average_precision": 0.7594362313815444,
+    "precision_at_10": 1.0,
+    "precision_at_50": 0.96,
+    "roc_auc": 0.530086508809101
+  },
+  "outputs": {
+    "aggregate_actions": "work/outputs/capstone_action_summary.json",
+    "figures": [
+      "work/figures/capstone_precision_recall.png",
+      "work/figures/capstone_precision_at_k.png",
+      "work/figures/capstone_permutation_importance.png"
+    ],
+    "metrics": "work/outputs/capstone_metrics.json",
+    "row_level_exports_written": false
+  },
+  "permutation_importance": [
+    {
+      "feature": "log1p_march_impressions",
+      "mean_ap_decrease": 0.02672041433085246,
+      "std": 0.0045642762460456655
+    },
+    {
+      "feature": "march_avg_position",
+      "mean_ap_decrease": 0.01703567150925487,
+      "std": 0.0009692067540261472
+    },
+    {
+      "feature": "log1p_march_clicks",
+      "mean_ap_decrease": 0.01176779007752209,
+      "std": 0.0015446736814033095
+    },
+    {
+      "feature": "march_ctr_pct",
+      "mean_ap_decrease": 0.005928721109344082,
+      "std": 0.0011166003919382305
+    }
+  ],
+  "project": "FlyRank ML Capstone \u2014 Search Decline Risk and CTR Review",
+  "source": {
+    "dataset": "FlyRank/internship-warehouse",
+    "dataset_revision": "50cbf7c3909d07be4d1b5906b4d09e882e5acbf2",
+    "feature_partition": "2026-03",
+    "label_partition": "2026-04",
+    "partition_rows_scanned_in_analysis": "March and April 2026 partitions only",
+    "release_build": "flyrank_pseudonymized_warehouse_release_v20260703",
+    "table": "fact_content_daily_performance",
+    "total_release_rows_reference": 78835655
+  },
+  "split": {
+    "client_overlap": 0,
+    "seed": 42,
+    "strategy": "GroupShuffleSplit by client_hash_id",
+    "test_clients": 9,
+    "test_positive_rate": 0.7253713039923695,
+    "test_rows": 14678,
+    "test_size": 0.25,
+    "train_clients": 26,
+    "train_positive_rate": 0.5593404342482589,
+    "train_rows": 48820
+  },
+  "target": {
+    "definition": "1 if April clicks <= 0.8 * March clicks, among items with March impressions >= 100 and positive March clicks; absent April item rows are treated as 0 clicks only for clients active in April.",
+    "majority_class_rate": 0.5977196132161643,
+    "positive_rate": 0.5977196132161643,
+    "positive_rows": 37954
+  },
+  "top_risk_aggregates": {
+    "false_negatives_at_0_5": 5388,
+    "false_positives_at_0_5": 1838,
+    "note": "Aggregate counts only; no row-level IDs or predictions are exported.",
+    "threshold": 0.5,
+    "top_10_decline_proxy_count": 10,
+    "top_10_items": 10,
+    "top_50_decline_proxy_count": 48,
+    "top_50_items": 50
+  }
+}

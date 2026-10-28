@@ -1,0 +1,17 @@
+{
+  "decline_proxy_items": 94,
+  "median_march_impressions": 168.0,
+  "output_policy": "Aggregate-only; no page/client IDs or row-level scores are persisted.",
+  "position_band_counts": {
+    "13\u201320": 0,
+    "4\u20135": 0,
+    "6\u20138": 0,
+    "9\u201312": 0,
+    ">20": 100,
+    "unknown": 0,
+    "\u22643": 0
+  },
+  "positive_proxy_share": 0.94,
+  "ranked_items_summarized": 100,
+  "source": "client-held-out top-risk items only; descriptive, not an independent validation metric"
+}
